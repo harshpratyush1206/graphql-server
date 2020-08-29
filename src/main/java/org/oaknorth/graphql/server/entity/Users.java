@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.oaknorth.graphql.server.entity.audit.Auditable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -58,5 +59,30 @@ public class Users extends Auditable implements Serializable {
         USER,
         ADMIN,
         BANKER
+    }
+
+    public Users() {
+    }
+
+    public Users(String firstName, String lastName,
+                 String email, String contact,
+                 String password,
+                 UserStatus status,
+                 UserType userType,
+                 String city,
+                 String country,
+                 String street,
+                 String zip) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.contact = contact;
+        this.password = password;
+        this.status = status;
+        this.userType = userType;
+        this.city = city;
+        this.country = country;
+        this.street = street;
+        this.zip = zip;
     }
 }

@@ -17,22 +17,18 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Auditable {
 
   @CreatedBy
-  @JsonIgnore
   @Column(name = "created_by", updatable = false)
   private String createdBy;
 
   @CreatedDate
-  @JsonIgnore
   @Column(name = "created_on", updatable = false)
   private LocalDateTime createdOn;
 
   @LastModifiedBy
-  @JsonIgnore
   @Column(name = "last_modified_by")
   private String lastModifiedBy;
 
   @LastModifiedDate
-  @JsonIgnore
   @Column(name = "last_modified_on")
   private LocalDateTime lastModifiedOn;
 

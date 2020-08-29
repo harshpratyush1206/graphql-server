@@ -1,5 +1,6 @@
 schema {
     query: Query
+    mutation: Mutation
 }
 
 type Query{
@@ -68,3 +69,17 @@ enum UserStatus{
 }
 
 scalar LocalDateTime
+
+type Mutation{
+createUser(firstName: String!,
+    lastName: String!,
+    email: String!,
+    contact: String!,
+    password:String,
+    status: UserStatus!,
+    userType: UserType!,
+    city: String!,
+    country: String!,
+    street: String!,
+    zip: String!):UserDetails
+}
