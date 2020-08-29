@@ -1,4 +1,4 @@
-package org.oaknorth.graphql.server.resolvers;
+package org.oaknorth.graphql.server.scalar;
 
 import graphql.language.ScalarTypeDefinition;
 import graphql.language.StringValue;
