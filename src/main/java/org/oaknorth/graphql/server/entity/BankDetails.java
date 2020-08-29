@@ -30,7 +30,7 @@ public class BankDetails extends Auditable implements Serializable {
     private BranchDetails branchDetails;
 
     @ManyToOne
-    @JoinColumn(name="user_fk",nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name="user_fk",nullable = false)
     private Users user;
 
     @Column(nullable = false)

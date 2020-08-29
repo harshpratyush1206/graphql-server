@@ -82,4 +82,12 @@ createUser(firstName: String!,
     country: String!,
     street: String!,
     zip: String!):UserDetails
+
+createBranch( branchCode:String!,
+    city: String!,
+    country: String!,
+    street: String!,
+    zip: String!):BranchDetails
+
+createBankDetails(accountNumber:String!,branchCode:String!,userId:Int!):BankDetails
 }

@@ -27,4 +27,15 @@ public class BranchDetails extends Auditable implements Serializable {
     private String street;
 
     private String zip;
+
+    public BranchDetails() {
+    }
+
+    public BranchDetails(String branchCode, String city, String country, String street, String zip) {
+        this.branchCode = branchCode;
+        this.city = city;
+        this.country = country;
+        this.street = street;
+        this.zip = zip;
+    }
 }
