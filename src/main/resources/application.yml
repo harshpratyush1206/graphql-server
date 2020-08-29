@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    password: ${password}
+    url: jdbc:postgresql://${db_host}:${db_port}/${db_name}
+    username: ${username}
+    maximum-pool-size: 30
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    table: grapql_demo_schema_version
+    baseline-on-migrate: true
+    baseline-version: 0
+    repair: true

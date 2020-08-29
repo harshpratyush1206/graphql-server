@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    password: sa
+    url: jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1
+    username: sa
+  h2:
+    console:
+      enabled: true
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    hibernate:
+      ddl-auto: create
+  flyway:
+    enabled: false
+  server:
+    port: 8086

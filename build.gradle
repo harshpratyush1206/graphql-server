@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 'org.oaknorth.graphql'
+group = 'org.oaknorth.graphql.server'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
@@ -26,15 +26,22 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.flywaydb:flyway-core'
+	implementation "com.graphql-java:graphql-spring-boot-starter:3.6.0"
+	implementation "com.graphql-java:graphql-java-tools:3.2.0"
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+	testCompile 'com.h2database:h2'
 	testImplementation 'io.projectreactor:reactor-test'
 }
 
 test {
 	useJUnitPlatform()
+}
+
+build{
+	dependsOn test
 }
