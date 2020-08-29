@@ -5,13 +5,14 @@ import lombok.EqualsAndHashCode;
 import org.oaknorth.graphql.server.entity.audit.Auditable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "bank_transaction")
-public class Transaction extends Auditable {
+public class Transaction extends Auditable implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

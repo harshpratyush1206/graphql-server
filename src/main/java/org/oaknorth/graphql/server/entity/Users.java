@@ -5,12 +5,13 @@ import lombok.EqualsAndHashCode;
 import org.oaknorth.graphql.server.entity.audit.Auditable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "user_details")
-public class Users extends Auditable {
+public class Users extends Auditable implements Serializable {
 
 
     @Id
@@ -50,12 +51,12 @@ public class Users extends Auditable {
     private String zip;
 
     public enum UserStatus {
-        ACTIVE
+        ACTIVE,EXPIRED
     }
 
     public enum UserType {
         USER,
         ADMIN,
-        BANKER;
+        BANKER
     }
 }

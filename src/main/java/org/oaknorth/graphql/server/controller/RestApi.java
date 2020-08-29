@@ -1,13 +1,16 @@
 package org.oaknorth.graphql.server.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
+//@RestController("graphql")
+//@Slf4j
 public class RestApi {
-
-    @RequestMapping("ping")
-    public String ping(){
-        return "ping";
-    }
+//
+//    @Autowired
+//    private GraphQLService graphQLService;
+//
+//    @PostMapping
+//    public ResponseEntity<Object> ping(@RequestBody String query){
+//        log.info("Entering One API");
+//        ExecutionResult execute = graphQLService.getGraphQL().execute(query);
+//        return new ResponseEntity<>(execute, HttpStatus.OK);
+//    }
 }

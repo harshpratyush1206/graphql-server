@@ -5,12 +5,13 @@ import lombok.EqualsAndHashCode;
 import org.oaknorth.graphql.server.entity.audit.Auditable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "branch_details")
-public class BranchDetails extends Auditable {
+public class BranchDetails extends Auditable implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

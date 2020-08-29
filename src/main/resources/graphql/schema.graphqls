@@ -1,0 +1,70 @@
+schema {
+    query: Query
+}
+
+type Query{
+ allBank: [BankDetails],
+ bank(accountNumber: String): BankDetails
+}
+
+
+type BankDetails{
+    id: Int,
+    accountNumber: String,
+    branchCode: String,
+    branchDetails:BranchDetails,
+    user: UserDetails,
+    balance: Float,
+    accountStatus:AccountStatus,
+    createdBy: String,
+    createdOn:LocalDateTime,
+    lastModifiedBy: String,
+    lastModifiedOn: LocalDateTime
+}
+
+type BranchDetails{
+    id: Int,
+    branchCode: String,
+    city: String,
+    country: String,
+    street: String,
+    zip: String,
+    createdBy: String,
+    createdOn:LocalDateTime,
+    lastModifiedBy: String,
+    lastModifiedOn: LocalDateTime
+}
+
+type UserDetails{
+    id: Int,
+    firstName: String,
+    lastName: String,
+    email: String,
+    contact: String,
+    city: String,
+    country: String,
+    street: String,
+    zip: String,
+    status: UserStatus,
+    userType: UserType,
+    createdBy: String,
+    createdOn:LocalDateTime,
+    lastModifiedBy: String,
+    lastModifiedOn: LocalDateTime
+}
+
+enum AccountStatus{
+    ACTIVE,CLOSED,OPENED
+}
+
+enum UserType{
+    USER,
+    ADMIN,
+    BANKER
+}
+
+enum UserStatus{
+    ACTIVE,EXPIRED
+}
+
+scalar LocalDateTime
