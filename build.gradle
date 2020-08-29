@@ -1,0 +1,46 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
+    }
+}
+
+
+
+group 'com.oaknorth.graphql'
+
+task publishApiToMavenLocal {
+    dependsOn gradle.includedBuild('api').task(':publishToMavenLocal')
+}
+
+task publishServiceToMavenLocal {
+    mustRunAfter publishApiToMavenLocal
+    dependsOn gradle.includedBuild('service').task(':publishToMavenLocal')
+}
+
+task publishToMavenLocal {
+    group 'all'
+    dependsOn publishApiToMavenLocal
+    dependsOn publishServiceToMavenLocal
+}
+
+task prepareForTest {
+    group 'all'
+    dependsOn publishToMavenLocal
+}
+
+
+task coverage {
+    group 'all'
+    dependsOn gradle.includedBuild('api').task(':test')
+    dependsOn gradle.includedBuild('service').task(':test')
+}
+
+publishToMavenLocal{
+    finalizedBy coverage
+}
+

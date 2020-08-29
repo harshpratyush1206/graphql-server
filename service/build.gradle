@@ -1,0 +1,79 @@
+buildscript {
+    ext {
+        springBootVersion = '2.2.0.RELEASE'
+    }
+
+    repositories {
+        jcenter()
+        mavenCentral(url: "https://plugins.gradle.org/m2//")
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+//        classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.10.0'
+//        classpath "com.diffplug.spotless:spotless-plugin-gradle:3.25.0"
+    }
+}
+apply plugin: 'java'
+//apply plugin: "com.diffplug.gradle.spotless"
+
+apply from: '../shared.gradle'
+apply plugin: 'org.springframework.boot'
+
+version submodule.service
+
+jar {
+    enabled = true
+}
+
+bootJar  {
+    archiveClassifier = 'boot'
+}
+tasks.withType(PublishToMavenLocal) { task ->
+    task.dependsOn 'bootJar'
+}
+
+dependencies {
+
+//    implementation  'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation  group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+    implementation  group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+    implementation  'org.springframework.data:spring-data-commons'
+
+    compile "org.flywaydb:flyway-core"
+
+    compile group: 'org.postgresql', name: 'postgresql'
+
+    compile group: 'org.hibernate', name: 'hibernate-envers'
+    compile group: 'org.javassist', name: 'javassist'
+    compile group: 'com.vladmihalcea', name: 'hibernate-types-52', version: '2.2.2'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testCompile group: 'com.h2database', name: 'h2'
+    testImplementation 'io.projectreactor:reactor-test'
+
+
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+configurations.all {
+    resolutionStrategy.force 'io.netty:netty-all:4.1.36.Final'
+}
+
+
+bootJar.dependsOn 'jar'
+publishToMavenLocal.mustRunAfter 'bootJar'
+
+compileJava {
+    options.annotationProcessorPath = configurations.annotationProcessor
+    options.compilerArgs << "-s"
+    options.compilerArgs << "$buildDir/generated/sources/annotationProcessor/java/main"
+}
