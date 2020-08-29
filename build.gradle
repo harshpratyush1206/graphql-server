@@ -1,46 +1,40 @@
-buildscript {
-    repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-    dependencies {
-        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
-    }
+plugins {
+	id 'org.springframework.boot' version '2.3.3.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
 }
 
+group = 'org.oaknorth.graphql'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
 
-
-group 'com.oaknorth.graphql'
-
-task publishApiToMavenLocal {
-    dependsOn gradle.includedBuild('api').task(':publishToMavenLocal')
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
 }
 
-task publishServiceToMavenLocal {
-    mustRunAfter publishApiToMavenLocal
-    dependsOn gradle.includedBuild('service').task(':publishToMavenLocal')
+repositories {
+	mavenCentral()
 }
 
-task publishToMavenLocal {
-    group 'all'
-    dependsOn publishApiToMavenLocal
-    dependsOn publishServiceToMavenLocal
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.flywaydb:flyway-core'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'io.projectreactor:reactor-test'
 }
 
-task prepareForTest {
-    group 'all'
-    dependsOn publishToMavenLocal
+test {
+	useJUnitPlatform()
 }
-
-
-task coverage {
-    group 'all'
-    dependsOn gradle.includedBuild('api').task(':test')
-    dependsOn gradle.includedBuild('service').task(':test')
-}
-
-publishToMavenLocal{
-    finalizedBy coverage
-}
-
