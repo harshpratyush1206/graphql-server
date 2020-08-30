@@ -74,13 +74,9 @@ scalar BigDecimal
 type Mutation{
 createUser(userModel:UserModel):UserDetails
 
-createBranch( branchCode:String!,
-    city: String!,
-    country: String!,
-    street: String!,
-    zip: String!):BranchDetails
+createBranch(branchDetails:BranchDetailsModel):BranchDetails
 
-createBankDetails(accountNumber:String!,branchCode:String!,userId:Int!):BankDetails
+createBankDetails(bankDetailModel:BankDetailsModel):BankDetails
 }
 
 input UserModel{
@@ -91,6 +87,20 @@ input UserModel{
     password:String,
     status: UserStatus!,
     userType: UserType!,
+    city: String!,
+    country: String!,
+    street: String!,
+    zip: String!
+}
+
+input BankDetailsModel{
+    accountNumber:String!,
+    branchCode:String!,
+    userId:Int!
+}
+
+input BranchDetailsModel{
+    branchCode:String!,
     city: String!,
     country: String!,
     street: String!,

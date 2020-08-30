@@ -3,6 +3,8 @@ package org.oaknorth.graphql.server.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.oaknorth.graphql.server.entity.audit.Auditable;
+import org.oaknorth.graphql.server.models.BankDetailsModel;
+import org.oaknorth.graphql.server.models.BranchDetailsModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -37,5 +39,12 @@ public class BranchDetails extends Auditable implements Serializable {
         this.country = country;
         this.street = street;
         this.zip = zip;
+    }
+
+    public static BranchDetails map(BranchDetailsModel branchDetailsModel){
+        return new BranchDetails( branchDetailsModel.getBranchCode(),
+                branchDetailsModel.getCity(), branchDetailsModel.getCountry(),
+                branchDetailsModel.getStreet(),branchDetailsModel.getZip());
+
     }
 }

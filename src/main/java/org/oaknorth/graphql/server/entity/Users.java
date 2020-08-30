@@ -3,6 +3,7 @@ package org.oaknorth.graphql.server.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.oaknorth.graphql.server.entity.audit.Auditable;
+import org.oaknorth.graphql.server.models.UserModel;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -84,5 +85,11 @@ public class Users extends Auditable implements Serializable {
         this.country = country;
         this.street = street;
         this.zip = zip;
+    }
+
+    public static Users map(UserModel userModel){
+        return new Users(userModel.getFirstName(),userModel.getLastName(),userModel.getEmail(),userModel.getContact(),
+                userModel.getPassword(),userModel.getStatus(),userModel.getUserType(),userModel.getCity(),
+                userModel.getCountry(),userModel.getStreet(),userModel.getZip());
     }
 }
