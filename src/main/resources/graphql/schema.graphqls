@@ -15,7 +15,7 @@ type BankDetails{
     branchCode: String,
     branchDetails:BranchDetails,
     user: UserDetails,
-    balance: Float,
+    balance: BigDecimal,
     accountStatus:AccountStatus,
     createdBy: String,
     createdOn:LocalDateTime,
@@ -69,9 +69,22 @@ enum UserStatus{
 }
 
 scalar LocalDateTime
+scalar BigDecimal
 
 type Mutation{
-createUser(firstName: String!,
+createUser(userModel:UserModel):UserDetails
+
+createBranch( branchCode:String!,
+    city: String!,
+    country: String!,
+    street: String!,
+    zip: String!):BranchDetails
+
+createBankDetails(accountNumber:String!,branchCode:String!,userId:Int!):BankDetails
+}
+
+input UserModel{
+    firstName: String!,
     lastName: String!,
     email: String!,
     contact: String!,
@@ -81,13 +94,5 @@ createUser(firstName: String!,
     city: String!,
     country: String!,
     street: String!,
-    zip: String!):UserDetails
-
-createBranch( branchCode:String!,
-    city: String!,
-    country: String!,
-    street: String!,
-    zip: String!):BranchDetails
-
-createBankDetails(accountNumber:String!,branchCode:String!,userId:Int!):BankDetails
+    zip: String!
 }

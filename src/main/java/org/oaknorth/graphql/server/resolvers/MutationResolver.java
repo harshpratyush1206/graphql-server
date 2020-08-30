@@ -6,6 +6,7 @@ import org.oaknorth.graphql.server.entity.BankDetails;
 import org.oaknorth.graphql.server.entity.BranchDetails;
 import org.oaknorth.graphql.server.entity.Users;
 import org.oaknorth.graphql.server.models.BankDetailsModel;
+import org.oaknorth.graphql.server.models.UserModel;
 import org.oaknorth.graphql.server.service.BankService;
 import org.oaknorth.graphql.server.service.BranchService;
 import org.oaknorth.graphql.server.service.UserService;
@@ -26,18 +27,11 @@ public class MutationResolver implements GraphQLMutationResolver {
     @Autowired
     private BankService bankService;
 
-    public Users createUser( String firstName,  String lastName,
-                                  String email,  String contact,
-                                  String password,
-                                  Users.UserStatus status,
-                                  Users.UserType userType,
-                                  String city,
-                                  String country,
-                                  String street,
-                                  String zip){
+    public Users createUser(UserModel userModel){
         log.info("Inside create user mutation");
-        Users users = new Users(firstName,lastName,email,contact,
-                password,status,userType,city,country,street,zip);
+        Users users = new Users(userModel.getFirstName(),userModel.getLastName(),userModel.getEmail(),userModel.getContact(),
+                userModel.getPassword(),userModel.getStatus(),userModel.getUserType(),userModel.getCity(),
+                userModel.getCountry(),userModel.getStreet(),userModel.getZip());
         return userService.createUser(users);
     }
 

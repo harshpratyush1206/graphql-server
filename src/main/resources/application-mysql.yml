@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    password: ${password}
+    url: jdbc:mysql://${db_host:localhost}:${db_port}/${db_name}
+    username: ${username}
+  flyway:
+    locations: classpath:/db/migration/mysql
