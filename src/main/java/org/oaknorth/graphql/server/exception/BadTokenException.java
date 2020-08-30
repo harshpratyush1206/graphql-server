@@ -1,15 +1,11 @@
 package org.oaknorth.graphql.server.exception;
 
-public class BadTokenException extends RuntimeException {
 
-    public BadTokenException() {}
+import org.springframework.security.core.AuthenticationException;
 
-    public BadTokenException(String message) {
-        super(message);
-    }
+public class BadTokenException extends AuthenticationException {
 
-    @Override
-    public String getMessage() {
-        return "Token is invalid or expired";
+    public BadTokenException() {
+        super("Token is invalid or expired");
     }
 }

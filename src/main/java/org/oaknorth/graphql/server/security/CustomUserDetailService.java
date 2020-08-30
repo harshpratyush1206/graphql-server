@@ -65,7 +65,7 @@ public class CustomUserDetailService implements UserDetailsService {
     public Optional<DecodedJWT> getDecodedToken(String token) {
         try {
             return Optional.of(verifier.verify(token));
-        } catch(JWTVerificationException ex) {
+        } catch(JWTVerificationException|IllegalArgumentException ex) {
             return Optional.empty();
         }
     }

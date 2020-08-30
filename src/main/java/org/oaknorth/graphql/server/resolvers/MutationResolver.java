@@ -73,6 +73,7 @@ public class MutationResolver implements GraphQLMutationResolver {
         return branchService.createBranch(BranchDetails.map(branchDetailsModel));
     }
 
+
     @PreAuthorize("hasAuthority('BANKER')")
     public BankDetails createBankDetails(@Valid BankDetailsModel bankDetails){
         return bankService.createBank(bankDetails);

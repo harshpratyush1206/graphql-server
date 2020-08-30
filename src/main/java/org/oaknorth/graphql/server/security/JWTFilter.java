@@ -1,6 +1,7 @@
 package org.oaknorth.graphql.server.security;
 
 import lombok.RequiredArgsConstructor;
+import org.oaknorth.graphql.server.exception.BadTokenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,14 +29,18 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        getToken(request)
-                .map(userDetailsService::loadUserByToken)
-                .map(userDetails -> JWTPreAuthenticationToken
-                        .builder()
-                        .principal(userDetails)
-                        .details(new WebAuthenticationDetailsSource().buildDetails(request))
-                        .build())
-                .ifPresent(authentication -> SecurityContextHolder.getContext().setAuthentication(authentication));
+        try {
+            getToken(request)
+                    .map(userDetailsService::loadUserByToken)
+                    .map(userDetails -> JWTPreAuthenticationToken
+                            .builder()
+                            .principal(userDetails)
+                            .details(new WebAuthenticationDetailsSource().buildDetails(request))
+                            .build())
+                    .ifPresent(authentication -> SecurityContextHolder.getContext().setAuthentication(authentication));
+        }catch (BadTokenException e) {
+            response.sendError(401);
+        }
         filterChain.doFilter(request, response);
 
     }
