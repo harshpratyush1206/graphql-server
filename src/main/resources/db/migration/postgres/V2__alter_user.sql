@@ -1,0 +1,1 @@
+ALTER TABLE user_details ADD COLUMN password_expiry timestamp without time zone;

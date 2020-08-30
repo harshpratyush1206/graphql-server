@@ -9,4 +9,6 @@ public interface UserService {
      Users createUser(@Valid  Users users);
 
      Optional<Users> findById(Long id);
+
+     Optional<Users> findByEmail(String email);
 }

@@ -74,9 +74,18 @@ scalar BigDecimal
 type Mutation{
 createUser(userModel:UserModel):UserDetails
 
+createBanker(userModel:UserModel):UserDetails
+
 createBranch(branchDetails:BranchDetailsModel):BranchDetails
 
 createBankDetails(bankDetailModel:BankDetailsModel):BankDetails
+
+login(email: String!, password: String!): Token
+}
+
+type Token{
+    token:String,
+    expiresOn:LocalDateTime
 }
 
 input UserModel{
@@ -84,9 +93,8 @@ input UserModel{
     lastName: String!,
     email: String!,
     contact: String!,
-    password:String,
+    password:String!,
     status: UserStatus!,
-    userType: UserType!,
     city: String!,
     country: String!,
     street: String!,

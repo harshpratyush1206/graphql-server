@@ -15,30 +15,17 @@ import java.util.stream.Collectors;
 public class ExceptionHandler implements GraphQLErrorHandler {
     @Override
     public List<GraphQLError> processErrors(List<GraphQLError> errors) {
-        final List<GraphQLError> clientErrors = filterGraphQLErrors(errors);
-        if (clientErrors.size() < errors.size()) {
-
-            errors.stream()
-                    .filter(error -> !isClientError(error))
-                    .forEach(error -> {
-                        clientErrors.add(new GenericGraphQLError(error.getMessage()));
-                        log.error("Error executing query ({}): {}", error.getClass().getSimpleName(), error.getMessage());
-                    });
-        }
-
-        return clientErrors;
-    }
-
-    protected List<GraphQLError> filterGraphQLErrors(List<GraphQLError> errors) {
         return errors.stream()
-                .filter(this::isClientError)
+                .map(this::unwrapError)
                 .collect(Collectors.toList());
     }
 
-    protected boolean isClientError(GraphQLError error) {
+    private GraphQLError unwrapError(GraphQLError error) {
         if (error instanceof ExceptionWhileDataFetching) {
-            return ((ExceptionWhileDataFetching) error).getException() instanceof GraphQLError;
+            ExceptionWhileDataFetching unwrappedError = (ExceptionWhileDataFetching) error;
+            return new GenericGraphQLError(unwrappedError.getException().getMessage());
+        } else {
+            return error;
         }
-        return !(error instanceof Throwable);
     }
 }

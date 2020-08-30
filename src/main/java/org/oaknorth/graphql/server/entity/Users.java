@@ -8,6 +8,8 @@ import org.oaknorth.graphql.server.models.UserModel;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -52,6 +54,10 @@ public class Users extends Auditable implements Serializable {
 
     private String zip;
 
+    @Column(name = "password_expiry", nullable = false)
+    private LocalDateTime passwordExpiresOn;
+
+
     public enum UserStatus {
         ACTIVE,EXPIRED
     }
@@ -69,7 +75,6 @@ public class Users extends Auditable implements Serializable {
                  String email, String contact,
                  String password,
                  UserStatus status,
-                 UserType userType,
                  String city,
                  String country,
                  String street,
@@ -88,8 +93,10 @@ public class Users extends Auditable implements Serializable {
     }
 
     public static Users map(UserModel userModel){
-        return new Users(userModel.getFirstName(),userModel.getLastName(),userModel.getEmail(),userModel.getContact(),
-                userModel.getPassword(),userModel.getStatus(),userModel.getUserType(),userModel.getCity(),
+        Users user = new Users(userModel.getFirstName(),userModel.getLastName(),userModel.getEmail(),userModel.getContact(),
+                userModel.getPassword(),userModel.getStatus(),userModel.getCity(),
                 userModel.getCountry(),userModel.getStreet(),userModel.getZip());
+        user.setPasswordExpiresOn(LocalDateTime.now().plus(2, ChronoUnit.YEARS));
+        return user;
     }
 }

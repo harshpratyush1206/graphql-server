@@ -2,7 +2,6 @@ spring:
   datasource:
     maximum-pool-size: 30
   jpa:
-    open-in-view: false
     hibernate:
       ddl-auto: validate
   flyway:
@@ -10,3 +9,9 @@ spring:
     baseline-on-migrate: true
     baseline-version: 0
     repair: true
+
+jwt:
+  secret: ${jwt_key:dr@ma&is&ever7h1ng}
+  issuer: ${jwt_issuer:grapql-server}
+  passwordStrength: -1
+
