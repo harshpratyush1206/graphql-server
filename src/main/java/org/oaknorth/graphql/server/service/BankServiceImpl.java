@@ -2,10 +2,15 @@ package org.oaknorth.graphql.server.service;
 
 import org.oaknorth.graphql.server.entity.BankDetails;
 import org.oaknorth.graphql.server.entity.BranchDetails;
+import org.oaknorth.graphql.server.entity.Users;
 import org.oaknorth.graphql.server.exception.ValidationFailedException;
 import org.oaknorth.graphql.server.models.BankDetailsModel;
 import org.oaknorth.graphql.server.repository.BankDetailsRepository;
+import org.oaknorth.graphql.server.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -31,7 +36,11 @@ public class BankServiceImpl implements BankService{
 
     @Override
     public List<BankDetails> bankDetailsList(){
+        if(SecurityUtil.getGrantedAuthority().anyMatch(Users.UserType.BANKAPP_ACCESS::contains))
         return bankDetailsRepository.findAll();
+        else {
+        return  bankDetailsRepository.findByUserId(SecurityUtil.getUserID());
+        }
     }
 
     @Override

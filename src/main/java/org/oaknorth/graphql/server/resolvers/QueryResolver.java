@@ -5,6 +5,7 @@ import org.oaknorth.graphql.server.entity.BankDetails;
 import org.oaknorth.graphql.server.exception.ValidationFailedException;
 import org.oaknorth.graphql.server.service.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class QueryResolver implements GraphQLQueryResolver {
     @Autowired
     private BankService bankService;
 
+    @PreAuthorize("hasAnyAuthority('USER','ADMIN','BANKER')")
     public List<BankDetails> allBank() {
             return bankService.bankDetailsList();
     }

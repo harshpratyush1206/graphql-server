@@ -1,5 +1,6 @@
 package org.oaknorth.graphql.server.entity;
 
+import com.google.common.collect.ImmutableSet;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.oaknorth.graphql.server.entity.audit.Auditable;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -65,7 +67,10 @@ public class Users extends Auditable implements Serializable {
     public enum UserType {
         USER,
         ADMIN,
-        BANKER
+        BANKER;
+
+        public static Set<String> BANKAPP_ACCESS =
+                ImmutableSet.of(ADMIN.toString(), BANKER.toString());
     }
 
     public Users() {

@@ -10,16 +10,14 @@ import java.util.Collection;
 @Getter
 public class JWTUserDetails extends User {
     private final long userID;
-    private final String token;
 
     public JWTUserDetails(
             String username,
             String password,
             Collection<? extends GrantedAuthority> authorities,
-            long userId, String token) {
+            long userId) {
         super(username, password, authorities);
         this.userID = userId;
-        this.token = token;
     }
 
     public JWTUserDetails(
@@ -30,7 +28,7 @@ public class JWTUserDetails extends User {
             boolean credentialsNonExpired,
             boolean accountNonLocked,
             Collection<? extends GrantedAuthority> authorities,
-            long userId, String token) {
+            long userId) {
         super(
                 username,
                 password,
@@ -40,7 +38,6 @@ public class JWTUserDetails extends User {
                 accountNonLocked,
                 authorities);
         this.userID = userId;
-        this.token = token;
     }
 
 }

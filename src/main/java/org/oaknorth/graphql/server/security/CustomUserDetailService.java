@@ -23,11 +23,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Optional;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService {
+
 
     @Autowired
     private JWTVerifier verifier;
@@ -47,7 +49,7 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userService
                 .findByEmail(username)
-                .map(user -> getUserDetails(user, getToken(user)))
+                .map(this::getUserDetails)
                 .orElseThrow(() -> new UsernameNotFoundException("Username or password didn''t match"));
     }
 
@@ -56,7 +58,7 @@ public class CustomUserDetailService implements UserDetailsService {
         return getDecodedToken(token)
                 .map(DecodedJWT::getSubject)
                 .flatMap(userService::findByEmail)
-                .map(user -> getUserDetails(user, token))
+                .map(this::getUserDetails)
                 .orElseThrow(BadTokenException::new);
     }
 
@@ -108,9 +110,9 @@ public class CustomUserDetailService implements UserDetailsService {
 
 
 
-    private JWTUserDetails getUserDetails(Users user, String token) {
+    private JWTUserDetails getUserDetails(Users user) {
         return new JWTUserDetails(user.getEmail(),user.getPassword(), true,true,
                 user.getPasswordExpiresOn().isAfter(LocalDateTime.now()),true,Arrays.asList((GrantedAuthority
-                ) () -> user.getUserType().name()),user.getId(),token);
+                ) () -> user.getUserType().name()),user.getId());
     }
 }
