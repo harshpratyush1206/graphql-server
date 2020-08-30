@@ -1,14 +1,31 @@
 package org.oaknorth.graphql.server.entity.audit;
 
 import java.util.Optional;
+
+import org.jetbrains.annotations.NotNull;
+import org.oaknorth.graphql.server.security.JWTUserDetails;
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 public class AuditorAwareImpl implements AuditorAware<String> {
 
-  // TODO: Will add security context holder after security implementation
-
+  @NotNull
   @Override
   public Optional<String> getCurrentAuditor() {
-    return Optional.of("anonymous");
+    return Optional.of(getCurrentUser());
+  }
+
+  private String getCurrentUser(){
+    return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+            .map(
+                    user -> {
+                      Object principle = user.getPrincipal();
+                      if (principle instanceof String) {
+                        return principle.toString();
+                      } else {
+                        return ((JWTUserDetails) (principle)).getUsername();
+                      }
+                    })
+            .orElse("GUEST");
   }
 }

@@ -1,6 +1,5 @@
 package org.oaknorth.graphql.server.entity.audit;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.persistence.Column;

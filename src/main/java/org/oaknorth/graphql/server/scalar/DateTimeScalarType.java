@@ -1,6 +1,5 @@
 package org.oaknorth.graphql.server.scalar;
 
-import graphql.language.ScalarTypeDefinition;
 import graphql.language.StringValue;
 import graphql.schema.Coercing;
 import graphql.schema.GraphQLScalarType;
