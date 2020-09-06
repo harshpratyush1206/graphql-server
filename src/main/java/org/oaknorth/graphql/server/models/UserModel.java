@@ -34,4 +34,6 @@ public class UserModel {
     private String street;
 
     private String zip;
+
+    private String timeZone;
 }

@@ -10,14 +10,17 @@ import java.util.Collection;
 @Getter
 public class JWTUserDetails extends User {
     private final long userID;
+    // -- user-- preference--//
+    private final String timeZone;
 
     public JWTUserDetails(
             String username,
             String password,
             Collection<? extends GrantedAuthority> authorities,
-            long userId) {
+            long userId, String timeZone) {
         super(username, password, authorities);
         this.userID = userId;
+        this.timeZone = timeZone;
     }
 
     public JWTUserDetails(
@@ -28,7 +31,7 @@ public class JWTUserDetails extends User {
             boolean credentialsNonExpired,
             boolean accountNonLocked,
             Collection<? extends GrantedAuthority> authorities,
-            long userId) {
+            long userId, String timeZone) {
         super(
                 username,
                 password,
@@ -38,6 +41,7 @@ public class JWTUserDetails extends User {
                 accountNonLocked,
                 authorities);
         this.userID = userId;
+        this.timeZone = timeZone;
     }
 
 }

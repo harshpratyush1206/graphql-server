@@ -51,7 +51,8 @@ type UserDetails{
     createdBy: String,
     createdOn:LocalDateTime,
     lastModifiedBy: String,
-    lastModifiedOn: LocalDateTime
+    lastModifiedOn: LocalDateTime,
+    timeZone: String
 }
 
 enum AccountStatus{
@@ -98,7 +99,8 @@ input UserModel{
     city: String!,
     country: String!,
     street: String!,
-    zip: String!
+    zip: String!,
+    timeZone: String!
 }
 
 input BankDetailsModel{

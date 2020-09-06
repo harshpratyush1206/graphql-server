@@ -1,6 +1,7 @@
 package org.oaknorth.graphql.server.security;
 
 
+import java.time.ZoneId;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -32,6 +33,20 @@ public class SecurityUtil {
         } else {
           throw new AccessDeniedException("Not Authenticated");
         }
+    }
+
+    public static String getUserZone() {
+       return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+                .map(
+                        user -> {
+                            Object principle = user.getPrincipal();
+                            if (principle instanceof String) {
+                                return "UTC";
+                            } else {
+                                return ((JWTUserDetails) (principle)).getTimeZone();
+                            }
+                        })
+                .orElse("UTC");
     }
 
     public static Stream<String> getGrantedAuthority(){

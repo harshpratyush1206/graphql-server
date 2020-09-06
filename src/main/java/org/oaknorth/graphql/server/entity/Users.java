@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
@@ -59,6 +60,9 @@ public class Users extends Auditable implements Serializable {
     @Column(name = "password_expiry", nullable = false)
     private LocalDateTime passwordExpiresOn;
 
+    @Column(name = "time_zone")
+    private String timeZone;
+
 
     public enum UserStatus {
         ACTIVE,EXPIRED
@@ -83,7 +87,7 @@ public class Users extends Auditable implements Serializable {
                  String city,
                  String country,
                  String street,
-                 String zip) {
+                 String zip,String timeZone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -95,12 +99,15 @@ public class Users extends Auditable implements Serializable {
         this.country = country;
         this.street = street;
         this.zip = zip;
+        this.timeZone = timeZone;
     }
 
     public static Users map(UserModel userModel){
+
+        ZoneId zoneId = ZoneId.of(userModel.getTimeZone());
         Users user = new Users(userModel.getFirstName(),userModel.getLastName(),userModel.getEmail(),userModel.getContact(),
                 userModel.getPassword(),userModel.getStatus(),userModel.getCity(),
-                userModel.getCountry(),userModel.getStreet(),userModel.getZip());
+                userModel.getCountry(),userModel.getStreet(),userModel.getZip(),userModel.getTimeZone());
         user.setPasswordExpiresOn(LocalDateTime.now().plus(2, ChronoUnit.YEARS));
         return user;
     }

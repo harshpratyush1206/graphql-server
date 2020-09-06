@@ -20,10 +20,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Optional;
 
@@ -84,8 +84,8 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Transactional
     public String getToken(Users user) {
-        Instant now = Instant.now();
-        Instant expiry = Instant.now().plus(securityProperties.getTokenExpiration());
+        Instant now = Instant.now(Clock.systemUTC());
+        Instant expiry = now.plus(securityProperties.getTokenExpiration());
         return JWT
                 .create()
                 .withIssuer(securityProperties.getIssuer())
@@ -113,6 +113,6 @@ public class CustomUserDetailService implements UserDetailsService {
     private JWTUserDetails getUserDetails(Users user) {
         return new JWTUserDetails(user.getEmail(),user.getPassword(), true,true,
                 user.getPasswordExpiresOn().isAfter(LocalDateTime.now()),true,Arrays.asList((GrantedAuthority
-                ) () -> user.getUserType().name()),user.getId());
+                ) () -> user.getUserType().name()),user.getId(), user.getTimeZone());
     }
 }

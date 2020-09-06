@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 
 @Slf4j
@@ -84,7 +85,7 @@ public class MutationResolver implements GraphQLMutationResolver {
             String token = customUserDetailService.getToken(customUserDetailService.getCurrentUser());
             return new Token(token,customUserDetailService.getDecodedToken(token).orElseThrow(BadTokenException::new).
                     getExpiresAt().toInstant()
-                    .atZone(ZoneId.systemDefault())
+                    .atZone(ZoneOffset.UTC)
                     .toLocalDateTime());
 
     }
