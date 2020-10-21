@@ -15,5 +15,5 @@
 2. flyway location -> resources/db/migration/mysql
 
 ## 3. For Postgres:
-1. -Dspring.profiles.active=mysql
-2. flyway location -> resources/db/migration/mysql
+1. -Dspring.profiles.active=psql
+2. flyway location -> resources/db/migration/postgres
