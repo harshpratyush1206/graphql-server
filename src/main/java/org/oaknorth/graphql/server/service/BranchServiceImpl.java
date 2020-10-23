@@ -6,6 +6,7 @@ import org.oaknorth.graphql.server.repository.BranchDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +27,10 @@ public class BranchServiceImpl implements BranchService{
     @Override
     public Optional<BranchDetails> getBranchByCode(String branchCode){
         return branchDetailsRepository.findByBranchCode(branchCode);
+    }
+
+    @Override
+    public List<BranchDetails> getAllBranches() {
+        return branchDetailsRepository.findAll();
     }
 }

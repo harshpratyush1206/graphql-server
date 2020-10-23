@@ -3,6 +3,7 @@ package org.oaknorth.graphql.server.service;
 import org.oaknorth.graphql.server.entity.Users;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -11,4 +12,6 @@ public interface UserService {
      Optional<Users> findById(Long id);
 
      Optional<Users> findByEmail(String email);
+
+     List<Users> findByUserType(Users.UserType userType);
 }

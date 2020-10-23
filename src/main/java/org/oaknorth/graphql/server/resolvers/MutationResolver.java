@@ -86,7 +86,7 @@ public class MutationResolver implements GraphQLMutationResolver {
             return new Token(token,customUserDetailService.getDecodedToken(token).orElseThrow(BadTokenException::new).
                     getExpiresAt().toInstant()
                     .atZone(ZoneOffset.UTC)
-                    .toLocalDateTime());
+                    .toLocalDateTime(),customUserDetailService.getCurrentUser().getUserType());
 
     }
 }

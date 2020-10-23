@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,5 +34,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public Optional<Users> findByEmail(String email){
        return userRepository.findByEmailIgnoreCase(email);
+    }
+
+    @Override
+    public List<Users> findByUserType(Users.UserType userType) {
+        return userRepository.findByUserType(userType);
     }
 }

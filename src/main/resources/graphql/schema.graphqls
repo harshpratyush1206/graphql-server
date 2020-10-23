@@ -5,7 +5,9 @@ schema {
 
 type Query{
  allBank: [BankDetails],
- bank(accountNumber: String): BankDetails
+ bank(accountNumber: String): BankDetails,
+ allBranches: [BranchDetails],
+ allClients:[UserDetails]
 }
 
 
@@ -86,7 +88,8 @@ login(email: String!, password: String!): Token
 
 type Token{
     token:String!,
-    expiresOn:LocalDateTime!
+    expiresOn:LocalDateTime!,
+    userType: UserType
 }
 
 input UserModel{
@@ -106,7 +109,7 @@ input UserModel{
 input BankDetailsModel{
     accountNumber:String!,
     branchCode:String!,
-    userId:Int!
+        userId:Int!
 }
 
 input BranchDetailsModel{
