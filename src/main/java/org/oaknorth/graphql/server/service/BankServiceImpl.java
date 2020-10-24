@@ -43,11 +43,11 @@ public class BankServiceImpl implements BankService{
 
     @Override
     @Transactional
-    public BankDetails createBank(BankDetailsModel bankDetailsModel) {
+    public BankDetails createBankAccount(BankDetailsModel bankDetailsModel) {
         BankDetails bankDetails =  new BankDetails();
         log.info("Creating bank account with number {} ",bankDetailsModel.getAccountNumber());
         if(this.bankDetails(bankDetailsModel.getAccountNumber()).isPresent()){
-            throw new ValidationFailedException("Bank details already present");
+            throw new ValidationFailedException("Account already for account number : {0}  ", bankDetailsModel.getAccountNumber());
         }
 
         bankDetails.setBranchCode(branchService.getBranchByCode(bankDetailsModel.getBranchCode()).

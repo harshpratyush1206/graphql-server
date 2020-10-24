@@ -85,7 +85,7 @@ createBanker(userModel:UserModel):UserDetails
 
 createBranch(branchDetails:BranchDetailsModel):BranchDetails
 
-createBankDetails(bankDetailModel:BankDetailsModel):BankDetails
+createBankAccount(bankDetailModel:BankDetailsModel):BankDetails
 
 login(email: String!, password: String!): Token
 }

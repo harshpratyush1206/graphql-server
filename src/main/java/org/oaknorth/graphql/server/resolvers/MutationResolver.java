@@ -73,8 +73,8 @@ public class MutationResolver implements GraphQLMutationResolver {
 
 
     @PreAuthorize("hasAuthority('BANKER')")
-    public BankDetails createBankDetails(@Valid BankDetailsModel bankDetails){
-        return bankService.createBank(bankDetails);
+    public BankDetails createBankAccount(@Valid BankDetailsModel bankDetails){
+        return bankService.createBankAccount(bankDetails);
     }
 
     @PreAuthorize("isAnonymous()")

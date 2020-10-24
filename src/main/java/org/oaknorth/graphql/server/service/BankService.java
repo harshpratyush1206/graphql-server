@@ -11,5 +11,5 @@ public interface BankService {
 
     List<BankDetails> bankDetailsList();
 
-    BankDetails createBank(BankDetailsModel bankDetails);
+    BankDetails createBankAccount(BankDetailsModel bankDetails);
 }
