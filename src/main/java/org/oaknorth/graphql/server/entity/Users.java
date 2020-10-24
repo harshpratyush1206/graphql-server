@@ -63,7 +63,17 @@ public class Users extends Auditable implements Serializable {
     @Column(name = "time_zone")
     private String timeZone;
 
+    @Transient
+    private String fullName;
 
+    @Transient
+    private String address;
+
+    @PostLoad()
+    public void postLoad(){
+        this.fullName= String.join(" ",firstName,lastName);
+        this.address = String.join(",",street,city,country);
+    }
     public enum UserStatus {
         ACTIVE,EXPIRED
     }

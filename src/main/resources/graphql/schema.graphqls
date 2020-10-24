@@ -32,6 +32,7 @@ type BranchDetails{
     country: String,
     street: String,
     zip: String,
+    address: String,
     createdBy: String,
     createdOn:LocalDateTime,
     lastModifiedBy: String,
@@ -54,7 +55,10 @@ type UserDetails{
     createdOn:LocalDateTime,
     lastModifiedBy: String,
     lastModifiedOn: LocalDateTime,
-    timeZone: String
+    timeZone: String,
+    fullName:String,
+    address: String
+
 }
 
 enum AccountStatus{

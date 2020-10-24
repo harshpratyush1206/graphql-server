@@ -29,7 +29,15 @@ public class BranchDetails extends Auditable implements Serializable {
 
     private String zip;
 
+    @Transient
+    private String address;
+
     public BranchDetails() {
+    }
+
+    @PostLoad()
+    public void postLoad(){
+        this.address = String.join(",",street,city,country);
     }
 
     public BranchDetails(String branchCode, String city, String country, String street, String zip) {

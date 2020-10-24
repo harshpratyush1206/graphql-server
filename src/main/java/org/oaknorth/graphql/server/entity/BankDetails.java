@@ -7,6 +7,7 @@ import org.oaknorth.graphql.server.entity.audit.Auditable;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -34,7 +35,7 @@ public class BankDetails extends Auditable implements Serializable {
     private Users user;
 
     @Column(nullable = false)
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN);
 
     @Column(name = "account_status")
     @Enumerated(EnumType.STRING)
