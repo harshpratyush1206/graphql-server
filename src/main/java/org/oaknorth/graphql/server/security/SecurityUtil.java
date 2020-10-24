@@ -1,15 +1,17 @@
 package org.oaknorth.graphql.server.security;
 
 
-import java.time.ZoneId;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SecurityUtil {
     public static String getAuthorId() {
         return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())

@@ -1,5 +1,6 @@
 package org.oaknorth.graphql.server.security;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -8,6 +9,7 @@ import java.util.Collection;
 
 
 @Getter
+@EqualsAndHashCode(callSuper = true)
 public class JWTUserDetails extends User {
     private final long userID;
     // -- user-- preference--//

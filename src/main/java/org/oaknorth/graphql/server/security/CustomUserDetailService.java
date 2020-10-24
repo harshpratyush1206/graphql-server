@@ -46,7 +46,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         return userService
                 .findByEmail(username)
                 .map(this::getUserDetails)

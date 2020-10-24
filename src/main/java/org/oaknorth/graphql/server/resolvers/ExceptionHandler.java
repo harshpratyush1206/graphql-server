@@ -21,6 +21,7 @@ public class ExceptionHandler implements GraphQLErrorHandler {
     }
 
     private GraphQLError unwrapError(GraphQLError error) {
+        log.error(error.getMessage());
         if (error instanceof ExceptionWhileDataFetching) {
             ExceptionWhileDataFetching unwrappedError = (ExceptionWhileDataFetching) error;
             return new GenericGraphQLError(unwrappedError.getException().getMessage());

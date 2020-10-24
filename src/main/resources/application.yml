@@ -10,9 +10,17 @@ spring:
     baseline-on-migrate: true
     baseline-version: 0
     repair: true
+  output:
+    ansi:
+      enabled: ALWAYS
 
 jwt:
   secret: ${jwt_key:dr@ma&is&ever7h1ng}
   issuer: ${jwt_issuer:grapql-server}
   passwordStrength: -1
 
+logging:
+  level:
+    graphql:
+      execution:
+        SimpleDataFetcherExceptionHandler: ERROR

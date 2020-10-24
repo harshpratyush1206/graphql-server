@@ -3,14 +3,13 @@ package org.oaknorth.graphql.server.entity;
 import com.google.common.collect.ImmutableSet;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.oaknorth.graphql.server.entity.audit.Auditable;
 import org.oaknorth.graphql.server.models.UserModel;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
@@ -18,6 +17,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "user_details")
+@NoArgsConstructor
 public class Users extends Auditable implements Serializable {
 
 
@@ -73,13 +73,9 @@ public class Users extends Auditable implements Serializable {
         ADMIN,
         BANKER;
 
-        public static Set<String> BANKAPP_ACCESS =
+        public static final Set<String> BANKAPP_ACCESS =
                 ImmutableSet.of(ADMIN.toString(), BANKER.toString());
     }
-
-    public Users() {
-    }
-
     public Users(String firstName, String lastName,
                  String email, String contact,
                  String password,
@@ -94,7 +90,6 @@ public class Users extends Auditable implements Serializable {
         this.contact = contact;
         this.password = password;
         this.status = status;
-        this.userType = userType;
         this.city = city;
         this.country = country;
         this.street = street;
@@ -104,7 +99,6 @@ public class Users extends Auditable implements Serializable {
 
     public static Users map(UserModel userModel){
 
-        ZoneId zoneId = ZoneId.of(userModel.getTimeZone());
         Users user = new Users(userModel.getFirstName(),userModel.getLastName(),userModel.getEmail(),userModel.getContact(),
                 userModel.getPassword(),userModel.getStatus(),userModel.getCity(),
                 userModel.getCountry(),userModel.getStreet(),userModel.getZip(),userModel.getTimeZone());

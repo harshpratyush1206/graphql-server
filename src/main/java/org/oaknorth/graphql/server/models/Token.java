@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Token {
 
-    public String token;
+    private String bearerToken;
 
     private LocalDateTime expiresOn;
 

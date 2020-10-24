@@ -1,7 +1,6 @@
 package org.oaknorth.graphql.server.resolvers;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import org.checkerframework.checker.units.qual.A;
 import org.oaknorth.graphql.server.entity.BankDetails;
 import org.oaknorth.graphql.server.entity.BranchDetails;
 import org.oaknorth.graphql.server.entity.Users;

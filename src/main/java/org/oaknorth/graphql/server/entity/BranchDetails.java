@@ -3,7 +3,6 @@ package org.oaknorth.graphql.server.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.oaknorth.graphql.server.entity.audit.Auditable;
-import org.oaknorth.graphql.server.models.BankDetailsModel;
 import org.oaknorth.graphql.server.models.BranchDetailsModel;
 
 import javax.persistence.*;
