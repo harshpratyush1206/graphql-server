@@ -1,6 +1,10 @@
 spring:
   datasource:
     maximum-pool-size: 30
+    hikari:
+      maximum-pool-size: 30
+      pool-name: graphql-pool
+      connection-init-sql: SELECT 1
   jpa:
     open-in-view: false
     hibernate:

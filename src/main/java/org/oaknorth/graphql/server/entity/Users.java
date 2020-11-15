@@ -6,10 +6,13 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.oaknorth.graphql.server.entity.audit.Auditable;
 import org.oaknorth.graphql.server.models.UserModel;
+import org.oaknorth.graphql.server.security.SecurityUtil;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
@@ -112,6 +115,7 @@ public class Users extends Auditable implements Serializable {
         Users user = new Users(userModel.getFirstName(),userModel.getLastName(),userModel.getEmail(),userModel.getContact(),
                 userModel.getPassword(),userModel.getStatus(),userModel.getCity(),
                 userModel.getCountry(),userModel.getStreet(),userModel.getZip(),userModel.getTimeZone());
+        Assert.notNull(ZoneId.of(userModel.getTimeZone()),"Time Zone issue");
         user.setPasswordExpiresOn(LocalDateTime.now().plus(2, ChronoUnit.YEARS));
         return user;
     }

@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  graphql-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: graphql-server
+    ports:
+      - "8080:8080"
+    environment:
+      - db_host=db
+      - db_name=graphql-server-db
+      - username=postgres
+      - password=admin
+      - db_port=5432
+      - spring.profiles.active=psql
+    depends_on:
+      - db
+  db:
+    image: postgres:10-alpine
+    container_name: graphql-server-db
+    environment:
+      - POSTGRES_DB=graphql-server-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
